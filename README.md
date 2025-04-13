@@ -14,6 +14,12 @@ npm install esa-api-client
 yarn add esa-api-client
 ```
 
+または
+
+```bash
+pnpm add esa-api-client
+```
+
 ## 使い方
 
 ### クライアントの初期化
