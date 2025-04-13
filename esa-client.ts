@@ -8,7 +8,8 @@ import {
   TagsResponse,
   InvitationUrlResponse, Invitation, InvitationsResponse, InviteMembersParams, CreateInvitationsResponse,
   EmojisResponse, CreateEmojiParams, CreateEmojiResponse,
-  AuthenticatedUser, PostsRequestParams
+  AuthenticatedUser, PostsRequestParams,
+  PostItem, PostsSearchResult
 } from './types.js';
 
 /**
@@ -326,7 +327,7 @@ export class EsaClient {
   public searchPosts(searchParams: string){
     const params = encodeURI(searchParams)
     
-    return this.get<Post>('/posts/search', { q: params }, undefined, true)
+    return this.get<PostsSearchResult>('/posts/search', { q: params }, undefined, true)
   }
 
   // Comments API

@@ -203,6 +203,22 @@ export interface CreateEmojiResponse {
   code: string;
 }
 
+// Search result and post list common type
+export interface PostItem {
+  name: string;
+  path: string;
+  icon?: string;
+  type: 'post' | 'search';
+  wip?: boolean;
+  query?: string;
+  total?: number;
+}
+
+// Posts search result
+export interface PostsSearchResult {
+  posts: PostItem[];
+}
+
 // Authenticated user type
 export interface AuthenticatedUser {
   id: number;
