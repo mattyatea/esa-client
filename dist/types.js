@@ -1,4 +1,0 @@
-/**
- * ESA API Types
- */
-export {};
