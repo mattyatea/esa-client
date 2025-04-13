@@ -15,6 +15,7 @@ const runIntegrationTests = process.env.ESA_RUN_INTEGRATION === 'true';
 
 // 環境変数からトークンとチーム名を取得
 const token = process.env.ESA_API_TOKEN || '';
+const sessionToken = process.env.ESA_SESSION_TOKEN || '';
 const teamName = process.env.ESA_TEAM_NAME || '';
 
 // トークンとチーム名が設定されていない場合はテスト全体をスキップ
@@ -27,7 +28,7 @@ const shouldSkip = !runIntegrationTests || !token || !teamName;
   
   beforeAll(() => {
     // 統合テスト用のクライアントを作成
-    client = new EsaClient({ token, teamName });
+    client = new EsaClient({ token, sessionToken, teamName});
   });
   
   // 認証情報の取得テスト

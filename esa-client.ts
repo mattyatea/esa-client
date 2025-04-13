@@ -34,13 +34,15 @@ export class EsaClient {
   private baseUrl: string = 'https://api.esa.io/v1';
   private token: string;
   private teamName: string | null;
+  private sessionToken: string;
   
   /**
    * Create a new ESA API client
    * @param options Client configuration options
    */
-  constructor(options: { token: string; teamName?: string }) {
+  constructor(options: { token: string; teamName?: string, sessionToken: string }) {
     this.token = options.token;
+    this.sessionToken = options.sessionToken;
     this.teamName = options.teamName || null;
   }
   
@@ -66,7 +68,7 @@ export class EsaClient {
    * @param path API path
    * @param params Request parameters
    * @param teamName Optional team name (overrides the default)
-   * @param teamUri
+   * @param isUnofficialApi unofficial api (Search API etc...) 
    * @returns Promise resolving to the API response
    */
   private async request<T>(
@@ -74,7 +76,7 @@ export class EsaClient {
     path: string,
     params: any = {},
     teamName?: string,
-    teamUri? :boolean
+    isUnofficialApi? :boolean
   ): Promise<T> {
     const team = teamName || this.teamName;
     
@@ -82,9 +84,11 @@ export class EsaClient {
     const processedPath = team ? path.replace(':team_name', team) : path;
     
     // Create the URL with query parameters for GET requests
-    let url = teamUri ? `https://${this.teamName}.esa.io/${processedPath}` : `${this.baseUrl}${processedPath}`;
+    let url = isUnofficialApi ? `https://${this.teamName}.esa.io/${processedPath}` : `${this.baseUrl}${processedPath}`;
     let body: string | FormData | null = null;
-    let headers: HeadersInit = {
+    let headers: HeadersInit = isUnofficialApi ? {
+      "Cookie": `_esa_production_session_v3=${this.sessionToken}`,
+    } :{
       'Authorization': `Bearer ${this.token}`,
       'Content-Type': 'application/json',
     };
@@ -169,8 +173,8 @@ export class EsaClient {
   /**
    * GET request helper
    */
-  private get<T>(path: string, params?: any, teamName?: string | undefined, teamUri?: boolean): Promise<T> {
-    return this.request<T>('get', path, params || {}, teamName, teamUri);
+  private get<T>(path: string, params?: any, teamName?: string | undefined, isUnofficialApi?: boolean): Promise<T> {
+    return this.request<T>('get', path, params || {}, teamName, isUnofficialApi);
   }
   
   /**
