@@ -1,6 +1,8 @@
 # ESA API Client for TypeScript
 
-TypeScriptで実装されたesa.io API v1のクライアントライブラリです。標準のfetch APIを使用しています。
+TypeScriptで実装されたesa.io API v1のクライアントライブラリです。
+標準のfetch APIを使用しています。
+また、コードの作成にClaudeを使用しています。
 
 ## インストール
 
