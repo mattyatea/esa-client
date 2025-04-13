@@ -14,7 +14,6 @@ describe('EsaClient', () => {
     // テスト用のクライアントを作成
     client = new EsaClient({
       token: 'test-token',
-      sessionToken: 'test-session-token',
       teamName: 'test-team',
     });
   });
