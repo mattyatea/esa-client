@@ -318,12 +318,6 @@ export class EsaClient {
     return this.delete<void>(`/teams/:team_name/posts/${postNumber}`, {}, teamName);
   }
 
-  public searchPosts(searchParams: string){
-    const params = encodeURI(searchParams)
-    
-    return this.get<PostsSearchResult>('/teams/docs/posts', { q: params })
-  }
-
   // Comments API
 
   /**
