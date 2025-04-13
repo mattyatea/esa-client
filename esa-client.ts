@@ -9,7 +9,7 @@ import {
   InvitationUrlResponse, Invitation, InvitationsResponse, InviteMembersParams, CreateInvitationsResponse,
   EmojisResponse, CreateEmojiParams, CreateEmojiResponse,
   AuthenticatedUser, PostsRequestParams
-} from './types';
+} from './types.js';
 
 /**
  * ESA API Error class
