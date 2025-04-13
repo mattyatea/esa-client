@@ -1,6 +1,6 @@
 {
   "name": "esa-api-client",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "ESA API v1 client for TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
