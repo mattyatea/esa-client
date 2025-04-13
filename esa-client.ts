@@ -66,13 +66,15 @@ export class EsaClient {
    * @param path API path
    * @param params Request parameters
    * @param teamName Optional team name (overrides the default)
+   * @param teamUri
    * @returns Promise resolving to the API response
    */
   private async request<T>(
     method: string,
     path: string,
     params: any = {},
-    teamName?: string
+    teamName?: string,
+    teamUri? :boolean
   ): Promise<T> {
     const team = teamName || this.teamName;
     
@@ -80,7 +82,7 @@ export class EsaClient {
     const processedPath = team ? path.replace(':team_name', team) : path;
     
     // Create the URL with query parameters for GET requests
-    let url = `${this.baseUrl}${processedPath}`;
+    let url = teamUri ? `https://${this.teamName}.esa.io/${processedPath}` : `${this.baseUrl}${processedPath}`;
     let body: string | FormData | null = null;
     let headers: HeadersInit = {
       'Authorization': `Bearer ${this.token}`,
@@ -167,8 +169,8 @@ export class EsaClient {
   /**
    * GET request helper
    */
-  private get<T>(path: string, params?: any, teamName?: string): Promise<T> {
-    return this.request<T>('get', path, params || {}, teamName);
+  private get<T>(path: string, params?: any, teamName?: string | undefined, teamUri?: boolean): Promise<T> {
+    return this.request<T>('get', path, params || {}, teamName, teamUri);
   }
   
   /**
@@ -319,7 +321,8 @@ export class EsaClient {
 
   public searchPosts(searchParams: string){
     const params = encodeURI(searchParams)
-    return this.get<Post>('/teams/:team_name/posts/search', { q: params })
+    
+    return this.get<Post>('/posts/search', { q: params }, undefined, true)
   }
 
   // Comments API
