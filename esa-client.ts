@@ -84,7 +84,7 @@ export class EsaClient {
     const processedPath = team ? path.replace(':team_name', team) : path;
     
     // Create the URL with query parameters for GET requests
-    let url = isUnofficialApi ? `https://${this.teamName}.esa.io/${processedPath}` : `${this.baseUrl}${processedPath}`;
+    let url = isUnofficialApi ? `https://${this.teamName}.esa.io/api${processedPath}` : `${this.baseUrl}${processedPath}`;
     let body: string | FormData | null = null;
     let headers: HeadersInit = isUnofficialApi ? {
       "Cookie": `_esa_production_session_v3=${this.sessionToken}`,
